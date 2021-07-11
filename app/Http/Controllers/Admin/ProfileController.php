@@ -6,14 +6,16 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 use App\Profile;
+use App\ProfileHistory;
+use Carbon\Carbon;
 
 class ProfileController extends Controller
 {
     //
-public function add()
-{
+ public function add()
+ {
         return view('admin.profile.create');
-    }
+ }
 
  public function create(Request $request)
  {
@@ -55,10 +57,17 @@ public function add()
         $this->validate($request, Profile::$rules);
         $profile = Profile::find($request->id);
         $profile_form = $request->all();
+        
         unset($profile_form['_token']);
+        
         $profile->fill($profile_form)->save();
         
-        return redirect('admin/profile');
+        $profile_history = new ProfileHistory;
+        $profile_history->profile_id = $profile->id;
+        $profile_history->edited_at = Carbon::now();
+        $profile_history->save();
+        
+        return redirect('admin/profile/');
  }
  public function delete(Request $request)
  {
@@ -66,4 +75,5 @@ public function add()
     $profile->delete();
     return redirect('admin/profile/');
  }
+    
 }
