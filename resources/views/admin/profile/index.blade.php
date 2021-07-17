@@ -42,7 +42,11 @@
                                 <tr>
                                      <th>{{ $profile->id }}</th>
                                      <td>{{ str_limit($profile->name,20) }}</td>
-                                     <td>{{ str_limit($profile->gender,20) }}</td>
+                                     @if($profile->gender == 'male')
+                                        <td>男性</td>
+                                     @else
+                                        <td>女性</td>
+                                     @endif
                                      <td>{{ str_limit($profile->hobby,50) }}</td>
                                      <td>{{ str_limit($profile->introduction,70) }}</td>
                                      <td>
