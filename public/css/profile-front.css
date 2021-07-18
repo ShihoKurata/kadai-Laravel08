@@ -1,0 +1,14 @@
+body {
+  color: #000;
+}
+
+.header .logo {
+  width: 120px;
+  height: 82px;
+}
+
+.container {
+  font-size: 1em;
+  color: #999999;
+}
+
